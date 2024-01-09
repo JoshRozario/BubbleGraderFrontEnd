@@ -1,6 +1,7 @@
 export const processImage = async (
   imageSrcs: string[],
-  setResults: SetResultsCallback,  // Make sure SetResultsCallback is defined somewhere
+  setResults: SetResultsCallback,
+  setIsLoading: SetIsLoadingCallback,
   answerKey: AnswerKey,
   alreadyInFrame: boolean
   ): Promise<void> => {
@@ -24,7 +25,7 @@ export const processImage = async (
   formData.append('already_in_frame', alreadyInFrame.toString());
 
 
-  fetch('http://zadss.pythonanywhere.com/process', {
+  fetch('https://zadss.pythonanywhere.com/process', {
     method: 'POST',
     body: formData,
   })
@@ -50,6 +51,7 @@ export const processImage = async (
     });
   
     setResults(blobResults); // Update the state with the new results containing blob URLs
+    setIsLoading(false);    
   })
   
   .catch(error => {

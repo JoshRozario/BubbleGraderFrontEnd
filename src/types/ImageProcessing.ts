@@ -8,3 +8,5 @@ type ProcessImageResults = {
 type AnswerKey = { [key: string]: number };
 
 type SetResultsCallback = (results: ProcessImageResults) => void;
+
+type SetIsLoadingCallback = (value: boolean) => void;

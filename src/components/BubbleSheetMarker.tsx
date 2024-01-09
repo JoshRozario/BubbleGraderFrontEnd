@@ -19,6 +19,7 @@ const letterToNumber = (letter:string) => {
 
 
 const BubbleSheetMarker: React.FC = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [images, setImages] = useState<string[]>([]); // Changed to array
   const [files, setFiles] = useState<string[]>([])
   const [results, setResults] = useState<any>(null);
@@ -46,7 +47,6 @@ const BubbleSheetMarker: React.FC = () => {
     });
   };
 
-
 const addAnswerEntry = () => {
   setAnswerEntries([...answerEntries, { question: '', answer: '' }]);
 };
@@ -72,11 +72,20 @@ const handleSubmit = () => {
   }, {} as AnswerKey);
 
   if (images && Object.keys(answerKey).length > 0) {
-    processImage(images, setResults, answerKey, alreadyInFrame);
+    setIsLoading(true);
+    processImage(images, setResults,setIsLoading, answerKey, alreadyInFrame)
   } else {
     console.error("Image or answer key is missing!");
   }
 };
+
+const Spinner = () => (
+  <div className="flex justify-center items-center mt-4">
+    <div className="animate-spin rounded-full h-16 w-16 border-4 border-white border-t-transparent border-l-transparent"></div>
+  </div>
+);
+
+
 
 
 return (
@@ -121,7 +130,7 @@ return (
       {results && 
         <p className="font-semibold text-2xl self-start justify-self-start mt-5">Results:</p>
       }
-      {results && results.map((result : any, index: number) => (
+      {isLoading ? <Spinner/> : results && results.map((result : any, index: number) => (
         <div className="mt-4 p-4 bg-gray-700 rounded-md">
           <div className='pt-2 text-lg font-semibold'>Score: {result.score}/{result.numberOfQuestions} </div>
           <img className='pt-4 m-auto' src={result.visualised} alt="Processed Sheet"/>
