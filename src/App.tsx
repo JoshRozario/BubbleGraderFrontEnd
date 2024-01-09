@@ -1,4 +1,3 @@
-import React from 'react';
 import BubbleSheetMarker from './components/BubbleSheetMarker';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar'

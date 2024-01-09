@@ -37,8 +37,9 @@ const BubbleSheetMarker: React.FC = () => {
       setFiles(prevFiles => [...prevFiles, file.name])
       const reader = new FileReader();
       reader.onload = (e: ProgressEvent<FileReader>) => {
-        if (e.target?.result) {
-          setImages(prevImages => [...prevImages, e.target.result as string]);
+        const target = e.target
+        if (target != null && target.result) {
+          setImages(prevImages => [...prevImages, target.result as string]);
         }
       };
       reader.readAsDataURL(file);
