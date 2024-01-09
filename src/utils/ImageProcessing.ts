@@ -24,7 +24,7 @@ export const processImage = async (
   formData.append('already_in_frame', alreadyInFrame.toString());
 
 
-  fetch('http://127.0.0.1:5000/process', {
+  fetch('http://zadss.pythonanywhere.com/process', {
     method: 'POST',
     body: formData,
   })
